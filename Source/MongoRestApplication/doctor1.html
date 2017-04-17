@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Doctor Homepage</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="css/custom-styles.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/component.css">
+    <link rel="stylesheet" href="css/font-awesome-ie7.css">
+
+    <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="css/style1.css">
+    <style>
+        h1 {
+            border-bottom: 3px solid #cc9900;
+            color:#FFFFFF;
+            font-size: 50px;
+        }
+        table, th , td  {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular.js"></script>
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-resource.js"></script>
+    <script type="text/javascript" src="http://code.angularjs.org/1.1.1/angular-sanitize.js"></script>
+    <script src="app.js"></script>
+    <script src="no.js"></script>
+
+</head>
+<body ng-app="demoMongo" id="body" background="1.jpg" style="background-size:cover">
+<div class="container">
+    <div class="site-header" style="background-image: url(img/123.png)">
+        <div class="logo">
+            <h1>FettleUp</h1>
+        </div>
+        <div class="menu">
+            <div class="navbar">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <i class="fw-icon-th-list"></i>
+                </a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="active"><a href="doctorhomepage.html">Home</a></li>
+                        <li><a href="doctor1.html">Patient Details</a></li>
+                        <li><a href="doctorupload.html">Upload patient details</a></li>
+                        <li><a href="SpeechtoText1.html">Say Hello</a></li>
+                        <li><a href="Index1.html">Logout</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+
+        </div>
+    </div>
+</div>
+<h1>Patient Details</h1>
+<div id="id01"></div>
+
+<script>
+    var xmlhttp = new XMLHttpRequest();
+    var url = "https://api.mongolab.com/api/1/databases/asesample/collections/ase?apiKey=fem6O2UHSxjQ4btoO0lIgGphavsZAyxK";
+
+    xmlhttp.onreadystatechange=function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myFunction(this.responseText);
+        }
+    }
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+    function myFunction(response) {
+        var arr = JSON.parse(response);
+        var i;
+        var out = "<center><table> <tr><td><strong>S.No</strong></td><td><strong>PatientName</strong></td><td><strong>Phonenumber</strong></td><td><strong>Email</strong></td><td><strong>Age</strong><td><strong>Disease Symptoms</strong></td><td><strong>ID</strong></td></tr>";
+
+        for(i = 0; i < arr.length; i++) {
+            out += "<tr><td>"+i+"</td><td>" +
+                arr[i].fname +
+                "</td><td>" +
+                arr[i].pno +
+                "</td><td>" +
+                arr[i].email +
+                "</td><td>" +
+                arr[i].age +
+                "</td><td>" +
+                arr[i].msg +
+                "</td><td>" +
+                arr[i]._id["$oid"] +
+                "</td></tr>";
+        }
+        out += "</table></center>";
+        document.getElementById("id01").innerHTML = out;
+    }
+</script>
+<div ng-controller="MongoRestController" ng-init="disp()">
+
+    <!--<div id="container" class="g1">-->
+
+</div><br>
+
+<script>    function sync() {
+    document.getElementById('id1').value=document.getElementById('id2').value;
+}
+</script>
+
+
+</div>
+
+</body>
+</html>
+
